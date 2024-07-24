@@ -76,7 +76,7 @@ const PropertyTable = ({ property, currentUser }: PropertyTableProps) => {
         <div>
             <div className='flex justify-between items-center'>
                 <h2 className=' text-2xl font-semibold'>Properties</h2>
-                <Button onClick={handleAdmin} variant="link" className=' text-blue-600 font-semibold'>Create Property</Button>
+                <Button onClick={handleAdmin} variant="link" className=' text-blue-600 text-md font-semibold'>Create Property</Button>
             </div>
 
             <div className='mt-5 border rounded-md overflow-auto'>

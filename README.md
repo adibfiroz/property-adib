@@ -1,36 +1,67 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+[`live Demo:`](https://property-adib.vercel.app/)
 
-First, run the development server:
+## How it works
+
+1. First by default home page is loaded which includes property cards view which is visible to all.
+2. routes are protected except for home, first if there is no admin and second if admin role is different.
+
+## 1. create admin user
+
+1. includes username, password and role. (role=["Admin", "Customer"])
+2. validation: empty fields and duplicate admin user.
+3. enter all fields and hit submit. after successful admin creation you will redirected to login page.
+
+## 2. login admin user
+
+1. includes username, password.
+2. validation: empty fields, admin user does not exist and invalid credentials.
+3. enter all fields and hit submit. after successful login you will redirected to home page.
+
+## 3. Admin and customer role authorization.
+
+1. after admin role login some access is only given to Admin
+
+   1. only admin create, update and delete property cards.
+   2. only admin can view leads, link property to leads
+
+2. after customer role login
+   1. customer can only view property cards
+   2. rest is unauthorised.
+   3. if you try to create or edit a property. you will prompted unathorised.
+
+## 4. Property cards
+
+1. create: includes community, building and unitNo fields (all together they are unique).
+   community and buildings have hard coded enums values. for community (CommunityA, CommunityB), for building (BuildingA, BuildingA). you can select any one value.
+   unitNo fields can be any value.
+   validation: all required fields, duplicate property
+2. edit: same as create, validation: all required fields, duplicate property
+3. delete property from property card action column. once delete the customer who has link to this property. that customer property will be remove.
+
+## 5. customers (leads) cards
+
+1. create: includes name, email and property link. validation: all required fields, duplicate customer
+2. edit: same as create except you cannot edit email, validation: all required fields, duplicate customer
+
+## Getting Started locally
+
+First, install node modules and add .env file:
 
 ```bash
+npm install
+
+Add DATABASE_URL of your mongodb
+NEXTAUTH_SECRET="NEXTAUTH_SECRET"
+
+# run
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npx prisma studio
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the dev server.
+Open [http://localhost:3000](http://localhost:5555) with your browser to see the prisma studio.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. in prima studio go to role and create two roles Admin and Customer.
+2. then rest process is same as described for live demo.

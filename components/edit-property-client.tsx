@@ -32,8 +32,8 @@ type Community = 'CommunityA' | 'CommunityB';
 type Building = 'BuildingA' | 'BuildingB';
 
 const EditPropertyClient = ({ property, currentUser }: EditPropertyClientProps) => {
-    const [community, setCommunity] = useState('');
-    const [building, setBuilding] = useState('');
+    const [community, setCommunity] = useState(property?.community || "");
+    const [building, setBuilding] = useState(property?.building || "");
     const [unitNo, setUnitNo] = useState('');
     const [isLoading, setisLoading] = useState(false);
     const router = useRouter()
@@ -57,15 +57,17 @@ const EditPropertyClient = ({ property, currentUser }: EditPropertyClientProps) 
             router.refresh()
         } catch (error: any) {
             setisLoading(false)
-            toast.error('Something went wrong!');
+            if (error?.response?.status === 501) {
+                toast.error('Property Already exist!');
+            } else {
+                toast.error('Something went wrong!');
+            }
         }
     };
 
     useEffect(() => {
-        setCommunity(property?.community || "")
-        setBuilding(property?.building || "")
         setUnitNo(property?.unitNo || "")
-    }, [property?.community, property?.building, property?.unitNo]);
+    }, [property?.unitNo]);
 
 
     useEffect(() => {
@@ -85,23 +87,19 @@ const EditPropertyClient = ({ property, currentUser }: EditPropertyClientProps) 
                     <div className="grid w-full items-center gap-4">
                         <div className="flex flex-col space-y-1.5">
                             <Label htmlFor="name">Community</Label>
-                            <Input
-                                type="text"
-                                id="community"
-                                defaultValue={property?.community}
-                                onChange={(e) => setCommunity(e.target.value)}
-                                required
-                            />
+                            <select required defaultValue={community} onChange={(e) => setCommunity(e.target.value)} name="" id="" className=" border px-2 py-3 rounded-md text-sm">
+                                <option value="">Select community</option>
+                                <option value="CommunityA">CommunityA</option>
+                                <option value="CommunityB">CommunityB</option>
+                            </select>
                         </div>
                         <div className="flex flex-col space-y-1.5">
                             <Label htmlFor="framework">Building</Label>
-                            <Input
-                                type="text"
-                                id="building"
-                                defaultValue={property?.building}
-                                onChange={(e) => setBuilding(e.target.value)}
-                                required
-                            />
+                            <select required defaultValue={building} onChange={(e) => setBuilding(e.target.value)} name="" id="" className=" border px-2 py-3 rounded-md text-sm">
+                                <option value="">Select Building</option>
+                                <option value="BuildingA">BuildingA</option>
+                                <option value="BuildingB">BuildingB</option>
+                            </select>
                         </div>
                         <div className="flex flex-col space-y-1.5">
                             <Label htmlFor="framework">unitNo</Label>

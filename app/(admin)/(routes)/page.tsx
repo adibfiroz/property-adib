@@ -1,4 +1,3 @@
-import RegisterClient from "@/components/register-client";
 import getCurrentUser from "../../actions/getCurrentUser";
 import ClientOnly from "@/components/ClientOnly";
 import Link from "next/link";
