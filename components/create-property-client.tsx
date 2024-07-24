@@ -72,23 +72,19 @@ const CreatePropertyClient = ({ currentUser }: CreatePropertyClientProps) => {
                     <div className="grid w-full items-center gap-4">
                         <div className="flex flex-col space-y-1.5">
                             <Label htmlFor="name">Community</Label>
-                            <Input
-                                type="text"
-                                id="community"
-                                value={community}
-                                onChange={(e) => setCommunity(e.target.value)}
-                                required
-                            />
+                            <select required value={community} onChange={(e) => setCommunity(e.target.value)} name="" id="" className=" border px-2 py-3 rounded-md text-sm">
+                                <option value="">Select community</option>
+                                <option value="CommunityA">CommunityA</option>
+                                <option value="CommunityB">CommunityB</option>
+                            </select>
                         </div>
                         <div className="flex flex-col space-y-1.5">
                             <Label htmlFor="framework">Building</Label>
-                            <Input
-                                type="text"
-                                id="building"
-                                value={building}
-                                onChange={(e) => setBuilding(e.target.value)}
-                                required
-                            />
+                            <select required value={building} onChange={(e) => setBuilding(e.target.value)} name="" id="" className=" border px-2 py-3 rounded-md text-sm">
+                                <option value="">Select Building</option>
+                                <option value="BuildingA">BuildingA</option>
+                                <option value="BuildingB">BuildingB</option>
+                            </select>
                         </div>
                         <div className="flex flex-col space-y-1.5">
                             <Label htmlFor="framework">unitNo</Label>

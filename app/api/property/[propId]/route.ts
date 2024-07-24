@@ -18,6 +18,16 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
       return NextResponse.error();
     }
 
+    const existingProperty = await prismadb.property.findFirst({
+      where: { community, building, unitNo },
+    });
+
+    if (existingProperty) {
+      return new NextResponse("property Already exist", {
+        status: 501,
+      });
+    }
+
     const property = await prismadb.property.update({
       where: {
         id: propId,
